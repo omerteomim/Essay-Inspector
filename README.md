@@ -2,6 +2,8 @@
 
 A comprehensive tool for analyzing and evaluating essays using automated scoring and feedback mechanisms.
 
+![Image Description](essay_inspector.png)
+
 ## 🎯 Overview
 
 Essay Inspector is an intelligent essay analysis system that provides automated scoring, feedback, and detailed insights into essay quality. The tool leverages natural language processing and machine learning techniques to evaluate essays across multiple criteria including grammar, coherence, structure, and content quality.
