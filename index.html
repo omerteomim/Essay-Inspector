@@ -391,7 +391,7 @@ async function submitText() {
     anotherBtn.style.display = "none";
 
     try {
-        const response = await fetch("https://utpyyxwtzntmuwecooanlerfta0oixzp.lambda-url.us-east-1.on.aws/", {
+        const response = await fetch("__LAMBDA_URL__", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ text: QuestionText, answer: AnswerText })
