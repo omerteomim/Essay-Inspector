@@ -75,3 +75,4 @@ jobs:
     - name: Upload index.html to S3
       run: |
         aws s3 cp index.html s3://${{ secrets.AWS_S3_BUCKET}}/index.html --cache-control no-store
+        aws s3 cp write.png s3://${{ secrets.AWS_S3_BUCKET}}/write.png --cache-control no-store
