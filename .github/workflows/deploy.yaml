@@ -48,14 +48,16 @@ jobs:
       run: |
         terraform plan \
           -var="api_key=${{ secrets.API_KEY }}" \
-          -var="aws_region=${{ secrets.AWS_REGION }}"
+          -var="aws_region=${{ secrets.AWS_REGION }}" \
+          -var="s3_bucket=${{ secrets.AWS_S3_BUCKET }}" 
           
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main'
       run: |
         terraform apply -auto-approve \
           -var="api_key=${{ secrets.API_KEY }}" \
-          -var="aws_region=${{ secrets.AWS_REGION }}"
+          -var="aws_region=${{ secrets.AWS_REGION }}" \
+          -var="s3_bucket=${{ secrets.AWS_S3_BUCKET }}"
 
     - name: Upload txt file to s3
       run: |
