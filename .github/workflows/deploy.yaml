@@ -56,6 +56,10 @@ jobs:
         terraform apply -auto-approve \
           -var="api_key=${{ secrets.API_KEY }}" \
           -var="aws_region=${{ secrets.AWS_REGION }}"
+
+    - name: Upload txt file to s3
+      run: |
+        aws s3 cp role.txt s3://${{ secrets.AWS_S3_BUCKET}}/role.txt --cache-control no-store
     
     - name: Apply Lambda function to html
       run: |

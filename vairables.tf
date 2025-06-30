@@ -21,3 +21,9 @@ variable "api_key" {
   type        = string
   sensitive   = true
 }
+
+variable "s3_bucket" {
+  description = "s3 bucket for static website"
+  type        = string
+  sensitive   = true
+}

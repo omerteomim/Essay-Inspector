@@ -24,6 +24,7 @@ resource "aws_lambda_function" "essay" {
   environment {
     variables = {
       OPENROUTER_API_KEY = var.api_key
+      BUCKET_NAME = var.s3_bucket
     }
   }
   
