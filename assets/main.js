@@ -38,7 +38,7 @@ function escapeHtml(text) {
 						});
 
 						const data = await response.json();
-						let htmlContent = data.user_text + data.user_answer + "<br><br>";
+						let htmlContent = data.text + data.answer + "<br><br>";
 
 						// Show the raw response directly to the user
 						if (data.result) {
