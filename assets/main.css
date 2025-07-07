@@ -313,6 +313,43 @@ input[type="button"]:active,
 	padding: 3.5em;
 }
 
+/* Main container: very light gray */
+.box.container {
+	background: #f5f6fa;
+	border-radius: 18px;
+	box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+	padding: 40px 24px;
+	margin-bottom: 32px;
+}
+
+/* Form area: white with a soft shadow */
+#form-area {
+	background: #fff;
+	border-radius: 14px;
+	box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+	padding: 32px 24px;
+	margin-bottom: 24px;
+}
+
+#form-area textarea {
+	width: 100%;
+	color: #222; /* Black text */
+	border: 1.5px solid #aaa; /* Lighter gray border */
+	border-radius: 8px;
+	padding: 10px 12px;
+	font-size: 1em;
+	transition: border-color 0.2s;
+	background: #fafbfc;
+	resize: vertical;
+	box-sizing: border-box;
+}
+
+#form-area textarea:focus {
+	border-color: #222; /* Black border on focus */
+	outline: none;
+	background: #fff;
+}
+
 /* Result Container */
 #result-container {
 	background: #ffffff;
@@ -682,4 +719,8 @@ body.is-preload .loader {
 	#header br {
 		display: none;
 	}
+}
+
+#QuestionText {
+    margin-bottom: 20px;
 }
