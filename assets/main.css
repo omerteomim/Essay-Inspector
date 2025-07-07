@@ -724,3 +724,57 @@ body.is-preload .loader {
 #QuestionText {
     margin-bottom: 20px;
 }
+
+ .social-link {
+	color: var(--text-secondary);
+	text-decoration: none;
+	font-size: 1.2rem;
+	width: 40px;
+	height: 40px;
+	border-radius: 40%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.3s ease;
+	background: rgba(100, 181, 246, 0.1);
+	border: 1px solid rgba(100, 181, 246, 0.2);
+}
+
+.social-link:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 25px rgba(100, 181, 246, 0.3);
+}
+
+footer {
+    background: #f5f6fa;
+    border-top: 1px solid #e0e0e0;
+    margin-top: 30px;
+}
+
+.footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding-left: 20px;
+    font-size: 1em;
+    color: #555;
+}
+
+.github-link {
+    color: #222;
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+}
+
+.github-link:hover {
+    color: #acacac;
+}
+
+.footer-content i.fab.fa-github {
+    font-size: 1.2em;
+}
