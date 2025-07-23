@@ -1,0 +1,55 @@
+name: CD
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.13'
+    
+    - name: Install dependencies and zip Lambda function
+      run: |
+        mkdir -p package
+        cp lambda_function.py package/
+        cd package
+        zip -r ../lambda_function.zip .
+        cd ..
+    
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Lambda Deploy
+      uses: appleboy/lambda-action@v0.2.0
+      with:
+        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws_region: ${{ secrets.AWS_REGION }}
+        function_name: essay_lambda
+        zip_file: lambda_function.zip
+
+    - name: Apply Lambda function to js
+      run: |
+       URL=$(aws lambda get-function-url-config --function-name essay_lambda --query 'FunctionUrl' --output text)
+       sed -i "s|__LAMBDA_URL__|$URL|g" assets/main.js
+
+    - name: Upload index.html to S3
+      run: |
+        aws s3 cp role.txt s3://${{ secrets.AWS_S3_BUCKET}}/role.txt --cache-control no-store
+        aws s3 cp index.html s3://${{ secrets.AWS_S3_BUCKET}}/index.html --cache-control no-store
+        aws s3 cp assets/ s3://${{ secrets.AWS_S3_BUCKET}}/assets/ --recursive --cache-control no-store
+        
