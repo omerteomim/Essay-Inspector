@@ -2,7 +2,7 @@ name: CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [ dev, prod, staging ]
   workflow_dispatch:
 
 jobs:
@@ -32,19 +32,22 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.AWS_REGION }}
+    
+    - name: Extract environment from branch
+      id: env
+      run: |
+        BRANCH_NAME=${GITHUB_REF#refs/heads/}
+        echo "environment=$BRANCH_NAME" >> $GITHUB_OUTPUT
 
     - name: Lambda Deploy
       uses: appleboy/lambda-action@v0.2.0
       with:
-        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws_region: ${{ secrets.AWS_REGION }}
-        function_name: essay_lambda
+        function_name: essay_lambda-${{ steps.env.outputs.environment }}
         zip_file: lambda_function.zip
 
     - name: Apply Lambda function to js
       run: |
-       URL=$(aws lambda get-function-url-config --function-name essay_lambda --query 'FunctionUrl' --output text)
+       URL=$(aws lambda get-function-url-config --function-name essay_lambda-${{ steps.env.outputs.environment }} --query 'FunctionUrl' --output text)
        sed -i "s|__LAMBDA_URL__|$URL|g" assets/main.js
 
     - name: Upload index.html to S3
