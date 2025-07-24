@@ -42,12 +42,12 @@ jobs:
     - name: Lambda Deploy
       uses: appleboy/lambda-action@v0.2.0
       with:
-        function_name: essay_lambda-${{ steps.env.outputs.environment }}
+        function_name: essay-lambda-${{ steps.env.outputs.environment }}
         zip_file: lambda_function.zip
 
     - name: Apply Lambda function to js
       run: |
-       URL=$(aws lambda get-function-url-config --function-name essay_lambda-${{ steps.env.outputs.environment }} --query 'FunctionUrl' --output text)
+       URL=$(aws lambda get-function-url-config --function-name essay-lambda-${{ steps.env.outputs.environment }} --query 'FunctionUrl' --output text)
        sed -i "s|__LAMBDA_URL__|$URL|g" assets/main.js
 
     - name: Upload index.html to S3
